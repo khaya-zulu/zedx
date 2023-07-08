@@ -1,0 +1,59 @@
+---
+const black = "#000";
+const white = "#fff";
+const gold = "#FFB612";
+const red = "#DE3831";
+const blue = "#002395";
+const green = "#007A4D";
+
+const grid = [
+  [green, green, white, red, red, red, red, red, red],
+  [gold, green, green, white, red, red, red, red, red],
+  [black, gold, green, green, white, white, white, white, white],
+  [black, black, gold, green, green, green, green, green, green],
+  [black, gold, green, green, white, white, white, white, white],
+  [gold, green, green, white, blue, blue, blue, blue, blue],
+  [green, green, white, blue, blue, blue, blue, blue, blue],
+];
+---
+
+<div class="bg-black flex justify-center">
+  <div class="flag inline-block">
+    {
+      grid.map(row => (
+        <div class={`grid grid-cols-9`}>
+          {row.map((col, idx) => (
+            <div
+              class="column h-4 w-4 rounded-full"
+              style={`background-color: ${col}; animation-delay: ${
+                idx * 30
+              }ms; ${
+                col === white ? "border-width: 1px; border-color: #e2e8f0" : ""
+              }`}
+            />
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  @keyframes oscillate {
+    from {
+      transform: translateY(8px);
+    }
+    to {
+      transform: translateY(-8px);
+    }
+  }
+  .column {
+    animation: oscillate 600ms infinite;
+    /* Ping-pong between “from” and “to”: */
+    animation-direction: alternate;
+    /* Use a symmetrical timing function: */
+    animation-timing-function: ease-in-out;
+    /* Avoid an initial flicker: */
+    animation-fill-mode: backwards;
+  }
+</style>
